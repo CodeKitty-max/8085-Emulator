@@ -17,12 +17,21 @@ typedef struct{
 I don't feel like doing ungodly binary manipulations just to load data haha*/
 
 //registers
+//Might seriously need to come here and look at two types of implementations
+//Will I come back? Haha idk
+
+//Depending on the kind of operation, the processor interprets these as either 8-bits or 16-bits
 __u8 A = 0x00; //8-bit accumulator
 regPair B; //register reference for B-C pair
-regPair D; //register reference for H-L pair
+regPair D; //register reference for D-E pair
 regPair H; //register reference for H-L pair
 __u8 flags[8];
 
+/*16-bit sections of the CPU
+  Initializing them at 0*/
+__u16 stackPointer = 0x00;
+__u16 programCounter = 0x00;
+__u16 addressBusLatch = 0x00;
 
 //Sets flags as desired
 __u8 setFlags(bool Cval, bool Pval, bool Aval, bool Zval, bool Sval){
@@ -76,3 +85,33 @@ void getFlags(__u8* ret){
     //Printing the set flags
     printSetFlagMap();
 }
+
+//Combining value in Accumulator with the flags in order to have a PSW value
+__u16 pswCombination(__u8 A, __u8 flags[8]){
+    __u16  PSW;
+    __u8 flagDecVal = 0; //storing the decimal value of the flag value
+
+    for (int i = 0; int < sizeof(flags)/sizeof(flags[i]); i++){
+        flagDecVal = (flagDecVal<<1) | flags[i];
+    }
+
+    PSW = (A << 8) | flagDecVal;//using the values in the Accumulator and Condition flag
+    return PSW;
+}
+
+
+
+
+/*Addressing modes
+  Instructions are categorized into their method of addressing the hardware registers
+  The 8085 has five instruction addressing modes
+  Here we initialize all five of them*/
+__u8 IMP(); //Indirect addressing mode
+__u8 REG(); //Register addressing mode
+__u8 IMM(); //Immediate addressing mode
+__u8 DIR(); //Direct addressing mode
+__u8 RIN(); //Register Indirect addressing mode
+__u8 COM(); //Combined addressing mode
+
+/*Intructions*/
+
