@@ -121,11 +121,11 @@ __u16 JMP(); void MVI();  __u8 ANI(); void HLT();
 __u16 CNZ(); void LHLD(); __u8 ORA(); void NOP();
 __u16 JNC(); void SHLD(); __u8 ORI(); void IN();
 __u16 ACI(); void LDAX(); __u8 XRA(); void OUT();
-__u16 SUI(); void XCHG(); __u8 XRI();
+__u16 SUI(); void XCHG(); __u8 XRI(); void POP();  
 __u16 SBB(); void XTHL(); __u8 CMP();
 __u16 SBI(); void STAX(); __u8 CPI();
-__u16 INX(); void PCHL(); void POP();           
-__u16 DCX(); void RST();  void XTHL();
-__u16 DAD(); void PUSH(); void SPHL();
+__u16 INX(); void PCHL(); __u8 INR();         
+__u16 DCX(); void RST();   void SPHL();
+__u16 DAD(); void PUSH();
 
 
